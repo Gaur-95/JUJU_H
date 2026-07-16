@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Broken Seal — A Jujutsu High Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0a10;
+    --ink-soft:#131320;
+    --ink-card:#171726;
+    --parchment:#e8dfc7;
+    --parchment-dim:#a9a08c;
+    --seal-red:#9a2b3a;
+    --seal-red-glow:#c73a4e;
+    --curse-violet:#5b3a8e;
+    --curse-violet-glow:#8464c9;
+    --steel:#495468;
+    --gold:#c9a227;
+    --line:#2a2a3c;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--ink);
+    color:var(--parchment);
+    font-family:'Noto Sans JP', sans-serif;
+    font-weight:300;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Shippori Mincho', serif;
+    font-weight:700;
+    letter-spacing:0.02em;
+  }
+
+  .eyebrow{
+    font-family:'Noto Sans JP', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.35em;
+    font-size:0.7rem;
+    color:var(--parchment-dim);
+    font-weight:500;
+  }
+
+  section{
+    padding:7rem 1.5rem;
+    max-width:1100px;
+    margin:0 auto;
+    position:relative;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:2rem 1.5rem;
+    position:relative;
+    max-width:100%;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 20%, rgba(91,58,142,0.18), transparent 70%),
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(154,43,58,0.10), transparent 70%),
+      var(--ink);
+  }
+
+  .crack-svg{
+    position:absolute;
+    top:0; left:0; width:100%; height:100%;
+    opacity:0.5;
+    pointer-events:none;
+  }
+
+  .hero-content{position:relative; z-index:2;}
+
+  .hero .eyebrow{margin-bottom:1.5rem; display:block;}
+
+  .hero h1{
+    font-size:clamp(2.6rem, 8vw, 6rem);
+    color:var(--parchment);
+    text-shadow:0 0 40px rgba(199,58,78,0.35);
+    line-height:1.05;
+  }
+
+  .hero h1 span{
+    display:block;
+    color:var(--seal-red-glow);
+  }
+
+  .hero-quote{
+    margin-top:2.5rem;
+    font-family:'Shippori Mincho', serif;
+    font-size:clamp(1.1rem, 2.5vw, 1.5rem);
+    font-style:italic;
+    color:var(--parchment-dim);
+    max-width:34ch;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:1.2rem 0;
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:2.5rem;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:0.65rem;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--parchment-dim);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.6rem;
+    animation:floaty 2.4s ease-in-out infinite;
+  }
+  .scroll-cue .line{width:1px; height:32px; background:linear-gradient(var(--parchment-dim), transparent);}
+  @keyframes floaty{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section-head{
+    text-align:center;
+    margin-bottom:3.5rem;
+  }
+  .section-head h2{
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    color:var(--parchment);
+    margin-top:0.6rem;
+  }
+  .section-head .divider{
+    width:48px; height:2px; background:var(--seal-red-glow);
+    margin:1.4rem auto 0;
+  }
+
+  /* ---------- THE LEGEND ---------- */
+  .legend{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:1.6rem;
+    max-width:760px;
+    margin:0 auto;
+  }
+  .legend p{color:var(--parchment); font-size:1.02rem;}
+  .legend p.dim{color:var(--parchment-dim);}
+  .pull-quote{
+    font-family:'Shippori Mincho', serif;
+    font-size:clamp(1.3rem, 3vw, 1.8rem);
+    color:var(--seal-red-glow);
+    text-align:center;
+    padding:2rem 1rem;
+    position:relative;
+  }
+  .pull-quote::before,.pull-quote::after{
+    content:'"';
+    font-size:2.5rem;
+    color:var(--line);
+    display:block;
+    line-height:0.5;
+  }
+
+  /* ---------- SEVEN SEALS TRACKER ---------- */
+  .seals-wrap{
+    background:var(--ink-soft);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:3rem 2rem;
+  }
+  .seals-row{
+    display:flex;
+    justify-content:center;
+    gap:clamp(0.6rem, 2vw, 1.6rem);
+    flex-wrap:wrap;
+    margin-top:2.5rem;
+  }
+  .seal-glyph{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.7rem;
+    width:74px;
+  }
+  .seal-circle{
+    width:56px; height:56px;
+    border-radius:50%;
+    border:2px solid var(--steel);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Shippori Mincho', serif;
+    font-size:1.1rem;
+    color:var(--parchment-dim);
+    position:relative;
+  }
+  .seal-glyph.broken .seal-circle{
+    border-color:var(--seal-red-glow);
+    color:var(--seal-red-glow);
+    box-shadow:0 0 22px rgba(199,58,78,0.5);
+    animation:pulse-red 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse-red{
+    0%,100%{box-shadow:0 0 16px rgba(199,58,78,0.4);}
+    50%{box-shadow:0 0 30px rgba(199,58,78,0.75);}
+  }
+  .seal-label{
+    font-size:0.62rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--parchment-dim);
+    text-align:center;
+  }
+  .seal-glyph.broken .seal-label{color:var(--seal-red-glow);}
+  .seals-caption{
+    text-align:center;
+    margin-top:2.2rem;
+    color:var(--parchment-dim);
+    font-size:0.92rem;
+  }
+
+  /* ---------- CARDS ---------- */
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:1.4rem;
+  }
+  .card{
+    background:var(--ink-card);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:1.8rem;
+    transition:border-color 0.25s ease, transform 0.25s ease;
+  }
+  .card:hover{
+    border-color:var(--curse-violet-glow);
+    transform:translateY(-3px);
+  }
+  .card h3{
+    font-size:1.25rem;
+    color:var(--parchment);
+    margin-bottom:0.3rem;
+  }
+  .card .jp-name{
+    font-size:0.8rem;
+    color:var(--parchment-dim);
+    margin-bottom:1rem;
+    display:block;
+  }
+  .card ul{list-style:none;}
+  .card li{
+    font-size:0.92rem;
+    color:var(--parchment-dim);
+    padding-left:1rem;
+    position:relative;
+    margin-bottom:0.5rem;
+  }
+  .card li::before{
+    content:'—';
+    position:absolute;
+    left:0;
+    color:var(--curse-violet-glow);
+  }
+  .card.villain:hover{border-color:var(--seal-red-glow);}
+  .card.villain li::before{color:var(--seal-red-glow);}
+  .card.legendary:hover{border-color:var(--gold);}
+  .card.legendary li::before{color:var(--gold);}
+
+  .stat-row{
+    display:flex;
+    gap:1.2rem;
+    flex-wrap:wrap;
+    margin-top:1rem;
+    padding-top:1rem;
+    border-top:1px solid var(--line);
+  }
+  .stat{
+    font-size:0.78rem;
+    color:var(--parchment-dim);
+  }
+  .stat b{color:var(--parchment); font-weight:500;}
+
+  .note-card{
+    grid-column:1/-1;
+    text-align:center;
+    color:var(--parchment-dim);
+    font-size:0.85rem;
+    font-style:italic;
+    border-style:dashed;
+  }
+
+  /* ---------- CLOSING ---------- */
+  .closing{
+    text-align:center;
+    padding-bottom:8rem;
+  }
+  .closing .pull-quote{font-size:clamp(1.4rem,3.5vw,2rem);}
+  .closing .final-line{
+    font-family:'Shippori Mincho', serif;
+    font-size:1.05rem;
+    color:var(--parchment-dim);
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    margin-top:2rem;
+  }
+
+  footer{
+    text-align:center;
+    padding:2.5rem 1.5rem;
+    color:var(--parchment-dim);
+    font-size:0.75rem;
+    border-top:1px solid var(--line);
+    letter-spacing:0.05em;
+  }
+
+  /* fade in on scroll */
+  .fade-in{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--curse-violet-glow);
+    outline-offset:3px;
+  }
+
+  @media (max-width:600px){
+    section{padding:4.5rem 1.2rem;}
+    .seal-circle{width:46px;height:46px;font-size:0.95rem;}
+    .seal-glyph{width:60px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <svg class="crack-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <path d="M500 0 L470 180 L540 260 L490 340 L560 430 L500 520 L590 620 L520 720 L560 1000"
+          fill="none" stroke="#9a2b3a" stroke-width="1.5" opacity="0.45"/>
+    <path d="M500 0 L470 180 L540 260 L490 340 L560 430 L500 520 L590 620 L520 720 L560 1000"
+          fill="none" stroke="#c73a4e" stroke-width="0.6" opacity="0.6"/>
+  </svg>
+  <div class="hero-content">
+    <span class="eyebrow">Jujutsu High Presents</span>
+    <h1>THE BROKEN<span>SEAL</span></h1>
+    <p class="hero-quote">"The first seal has already been broken."</p>
+  </div>
+  <div class="scroll-cue"><span>Enter</span><div class="line"></div></div>
+</div>
+
+<!-- THE LEGEND -->
+<section id="legend">
+  <div class="section-head fade-in">
+    <span class="eyebrow">The Beginning</span>
+    <h2>A School Built on a Secret</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="legend fade-in">
+    <p>Jujutsu High looks like an ordinary school. It isn't. Beneath the uniforms and classrooms, it secretly trains young curse users — students who learn to fight supernatural creatures while hiding their identities from the ordinary world.</p>
+    <p class="dim">One night, during a rare <b style="color:var(--parchment);font-weight:500;">Black Moon Eclipse</b>, first-year students find an abandoned shrine hidden beneath the school. At its center: a black book, covered in glowing symbols.</p>
+    <p class="dim">The moment one of them opens it, a single sentence appears.</p>
+    <p class="pull-quote">The first seal has already been broken.</p>
+    <p class="dim">The room shakes. Shadows come alive. Ancient spirits wake. And a creature called the <b style="color:var(--seal-red-glow);font-weight:500;">Void Reaper</b> escapes a prison that had held it for centuries.</p>
+    <p class="dim">The students barely survive — but each of them is left with a mark on their hand. The mark grants extraordinary power. Every time they use it, they lose a piece of their own memory.</p>
+    <p>Hidden in the book's pages are the locations of six more seals. If the wrong side finds them first, the Shadow Realm merges with Earth — permanently.</p>
+  </div>
+</section>
+
+<!-- SEVEN SEALS -->
+<section id="seals">
+  <div class="section-head fade-in">
+    <span class="eyebrow">The Stakes</span>
+    <h2>Seven Seals. One Is Already Gone.</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="seals-wrap fade-in">
+    <div class="seals-row">
+      <div class="seal-glyph broken">
+        <div class="seal-circle">壱</div>
+        <span class="seal-label">Seal I<br>Broken</span>
+      </div>
+      <div class="seal-glyph"><div class="seal-circle">弐</div><span class="seal-label">Seal II</span></div>
+      <div class="seal-glyph"><div class="seal-circle">参</div><span class="seal-label">Seal III</span></div>
+      <div class="seal-glyph"><div class="seal-circle">四</div><span class="seal-label">Seal IV</span></div>
+      <div class="seal-glyph"><div class="seal-circle">伍</div><span class="seal-label">Seal V</span></div>
+      <div class="seal-glyph"><div class="seal-circle">六</div><span class="seal-label">Seal VI</span></div>
+      <div class="seal-glyph"><div class="seal-circle">七</div><span class="seal-label">Seal VII</span></div>
+    </div>
+    <p class="seals-caption">Created by Rei Akatsuki, the Seven Ancient Seals are the only thing keeping the Shadow Realm out of our world. Six are still holding. Every chapter, the students race to reach the rest before someone else does.</p>
+  </div>
+</section>
+
+<!-- MAIN CHARACTERS -->
+<section id="characters">
+  <div class="section-head fade-in">
+    <span class="eyebrow">Who You'll Follow</span>
+    <h2>The Students</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="card-grid fade-in">
+    <div class="card">
+      <h3>Haruto Shiba</h3>
+      <span class="jp-name">陽翔 柴</span>
+      <div class="stat-row">
+        <span class="stat"><b>Role</b> — Strong fighter</span>
+      </div>
+      <ul>
+        <li>Hot-headed, fiercely loyal</li>
+        <li>Power: Iron Beast</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Mei Hoshino</h3>
+      <span class="jp-name">芽衣 星野</span>
+      <div class="stat-row">
+        <span class="stat"><b>Role</b> — Healer and researcher</span>
+      </div>
+      <ul>
+        <li>Gentle, clever</li>
+        <li>Power: Moonlight Healing</li>
+      </ul>
+    </div>
+    <div class="card note-card">More of the first-years — and what they find in the shrine — coming soon.</div>
+  </div>
+</section>
+
+<!-- LEGENDARY CHARACTERS -->
+<section id="legendary">
+  <div class="section-head fade-in">
+    <span class="eyebrow">Before The Students</span>
+    <h2>Legendary Characters</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="card-grid fade-in">
+    <div class="card legendary">
+      <h3>Hikaru Amamiya</h3>
+      <ul><li>The First Seal Guardian</li></ul>
+    </div>
+    <div class="card legendary">
+      <h3>Sora Tsukishima</h3>
+      <ul><li>Keeper of the Black Book</li></ul>
+    </div>
+    <div class="card legendary">
+      <h3>Rei Akatsuki</h3>
+      <ul><li>Creator of the Seven Ancient Seals</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHERS -->
+<section id="teachers">
+  <div class="section-head fade-in">
+    <span class="eyebrow">Jujutsu High Staff</span>
+    <h2>Teachers</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="card-grid fade-in">
+    <div class="card">
+      <h3>Master Kazuki Arata</h3>
+      <ul>
+        <li>Principal of Jujutsu High</li>
+        <li>One of the strongest sorcerers alive</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Sensei Ryusei Takeda</h3>
+      <ul>
+        <li>Combat instructor</li>
+        <li>Uses Dragon Curse techniques</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Sensei Kaede Fujimoto</h3>
+      <ul>
+        <li>Teaches ancient curse history and seal magic</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VILLAINS -->
+<section id="villains">
+  <div class="section-head fade-in">
+    <span class="eyebrow">What Stands In The Way</span>
+    <h2>Villains</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="card-grid fade-in">
+    <div class="card villain">
+      <h3>Raizen Kuro</h3>
+      <ul>
+        <li>Former Jujutsu High student</li>
+        <li>Broke the First Seal</li>
+        <li>Wants to reshape the world</li>
+      </ul>
+    </div>
+    <div class="card villain">
+      <h3>Void Reaper</h3>
+      <ul>
+        <li>Ancient cursed spirit</li>
+        <li>The first monster released</li>
+      </ul>
+    </div>
+    <div class="card villain">
+      <h3>Lady Shion</h3>
+      <ul>
+        <li>Mysterious woman who manipulates memories</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING / MYSTERY -->
+<section class="closing">
+  <div class="section-head fade-in">
+    <span class="eyebrow">The Real Mystery</span>
+    <h2>It Was Never About The Curse</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="fade-in">
+    <p style="color:var(--parchment-dim); max-width:600px; margin:0 auto;">
+      The greatest enemy was never a cursed spirit. It's a former Jujutsu High student who vanished years ago — after discovering the world's darkest secret. Now the students must cross forgotten temples, abandoned cities, frozen mountains, and hidden kingdoms to stop the rest of the seals from breaking. Every chapter hides a clue. Every battle reveals a little more of the truth.
+    </p>
+    <p class="pull-quote">Who broke the first seal... and why?</p>
+    <p class="final-line">To Be Continued</p>
+  </div>
+</section>
+
+<footer>
+  An original story · Jujutsu High
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.15});
+  document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+</script>
+
+</body>
+</html>
